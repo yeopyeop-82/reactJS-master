@@ -11,8 +11,9 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 15vh;
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -53,6 +54,7 @@ interface CoinInterface {
 }
 
 const Title = styled.h1`
+  font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
 
