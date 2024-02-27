@@ -67,12 +67,6 @@ function Chart({ coinId }: ChartProps) {
               labels: {
                 show: false,
               },
-              categories: {
-                categories: data?.map((price) =>
-                  new Date(price.time_close * 1000).toISOString()
-                ),
-              },
-              type: "datetime",
             },
             fill: {
               type: "gradient",
