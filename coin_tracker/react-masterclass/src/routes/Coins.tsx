@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { useQuery } from "react-query";
 import { Helmet } from "react-helmet";
+import { isMainThread } from "worker_threads";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -54,6 +55,8 @@ interface CoinInterface {
   type: string;
 }
 
+interface ICoinsProps {}
+
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -64,7 +67,7 @@ const Loader = styled.span`
   display: block;
 `;
 
-function Coins() {
+function Coins({}: ICoinsProps) {
   // const [coins, setCoins] = useState<CoinInterface[]>([]);
   // const [loading, setLoading] = useState(true);
 
