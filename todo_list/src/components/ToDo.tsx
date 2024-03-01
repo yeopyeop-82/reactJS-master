@@ -13,10 +13,13 @@ function ToDo({ text, category, id }: IToDo) {
       const newToDo = {
         text,
         id,
-        category: name,
+        category: name as any,
       };
-      console.log(oldToDo, newToDo);
-      return oldToDos;
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ];
     });
   };
   return (
