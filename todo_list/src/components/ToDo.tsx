@@ -7,6 +7,17 @@ function ToDo({ text, category, id }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id); // target의 경로를 찾는다.
+      const oldToDo = oldToDos[targetIndex];
+      const newToDo = {
+        text,
+        id,
+        category: name,
+      };
+      console.log(oldToDo, newToDo);
+      return oldToDos;
+    });
   };
   return (
     <li>
