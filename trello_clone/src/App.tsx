@@ -32,8 +32,9 @@ function App() {
       // same board movement.
       setToDos((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
+        const taskObject = boardCopy[source.index];
         boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination?.index, 0, draggableId);
+        boardCopy.splice(destination?.index, 0, taskObject);
         return {
           ...allBoards,
           [source.droppableId]: boardCopy,
@@ -44,8 +45,9 @@ function App() {
       setToDos((allBoards) => {
         const sourceBoard = [...allBoards[source.droppableId]];
         const destBoard = [...allBoards[destination.droppableId]];
+        const taskObject = sourceBoard[source.index]; //grab !!
         sourceBoard.splice(source.index, 1);
-        destBoard.splice(destination.index, 0, draggableId);
+        destBoard.splice(destination.index, 0, taskObject);
         return {
           ...allBoards,
           [source.droppableId]: sourceBoard,
@@ -53,20 +55,6 @@ function App() {
         };
       });
     }
-
-    // setToDos((oldToDos) => {
-    //   const copyToDos = [...oldToDos];
-    //   // 1) delete item on source.index
-    //   console.log("Delete item on ", source.index);
-    //   console.log(copyToDos);
-    //   copyToDos.splice(source.index, 1);
-    //   console.log("Delete item ");
-    //   // 2) Put back the item on the destiantion.index
-    //   console.log("put back ", draggableId, "on ", destination.index);
-    //   copyToDos.splice(destination?.index, 0, draggableId);
-    //   console.log(copyToDos);
-    //   return copyToDos;
-    // });
   };
 
   return (
