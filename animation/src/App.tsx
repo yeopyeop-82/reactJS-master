@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { linear } from "popmotion";
-import { prependListener } from "process";
 
 const Wrapper = styled(motion.div)`
   height: 100vh;
@@ -28,43 +26,47 @@ const Box = styled(motion.div)`
 `;
 
 const boxVariants = {
-  initial: {
-    x: 500,
+  entry: (isBack: boolean) => ({
+    x: isBack ? -500 : 500,
     opacity: 0,
     scale: 0,
-  },
-  visible: {
+  }),
+  center: (isBack: boolean) => ({
     x: 0,
     opacity: 1,
     scale: 1,
-  },
-  leaving: {
-    x: -500,
+  }),
+  exit: (isBack: boolean) => ({
+    x: isBack ? 500 : -500,
     opacity: 0,
     scale: 0,
-  },
+  }),
 };
 
 function App() {
   const [visible, setVisible] = useState(1);
-  const nextPlease = () => setVisible((prev) => (prev === 10 ? 10 : prev + 1));
-  const prevPlease = () => setVisible((prev) => (prev === 1 ? 1 : prev - 1));
+  const [back, setBack] = useState(false);
+  const nextPlease = async () => {
+    await setBack(false);
+    setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  };
+  const prevPlease = async () => {
+    await setBack(true);
+    setVisible((prev) => (prev === 1 ? 1 : prev - 1));
+  };
   return (
     <Wrapper>
       <AnimatePresence>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) =>
-          i === visible ? (
-            <Box
-              variants={boxVariants}
-              initial="initial"
-              animate="visible"
-              exit="leaving"
-              key={i}
-            >
-              {i}
-            </Box>
-          ) : null
-        )}
+        <Box
+          custom={back}
+          variants={boxVariants}
+          initial="entry"
+          animate="center"
+          exit="exit"
+          key={visible}
+        >
+          {visible}
+        </Box>
       </AnimatePresence>
       <button onClick={nextPlease}>next</button>
       <button onClick={prevPlease}>prev</button>
