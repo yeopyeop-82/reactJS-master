@@ -64,6 +64,9 @@ function App() {
           animate="center"
           exit="exit"
           key={visible}
+          transition={{
+            duration: 0.3,
+          }}
         >
           {visible}
         </Box>
