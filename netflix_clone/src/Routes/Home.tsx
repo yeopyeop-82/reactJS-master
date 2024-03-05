@@ -6,6 +6,7 @@ import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
   background-color: black;
+  height: 200vw;
 `;
 
 const Loader = styled.div`
@@ -21,7 +22,11 @@ const Banner = styled.div<{ bgPhoto: string }>`
   flex-direction: column;
   justify-content: center;
   padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.3) 80%,
+      rgba(0, 0, 0, 1) 100%
+    ),
     url(${(props) => props.bgPhoto});
   background-size: cover;
 `;
