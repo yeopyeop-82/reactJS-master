@@ -2,7 +2,6 @@ import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { serialize } from "v8";
 
 const Nav = styled(motion.nav)`
   display: flex;
