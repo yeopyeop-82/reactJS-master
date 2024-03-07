@@ -117,10 +117,32 @@ const BigMovie = styled(motion.div)`
   position: absolute;
   width: 40vw;
   height: 70vh;
-  top: 100;
   left: 0;
   right: 0;
   margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.black.darker};
+`;
+
+const BigCover = styled.div`
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 250px;
+`;
+
+const BigTitle = styled.span`
+  color: ${(props) => props.theme.white.lighter};
+  font-size: 36px;
+  padding: 10px;
+  position: relative;
+  top: -60px;
+`;
+
+const BigOverview = styled.p`
+  padding: 20px;
+  color: ${(props) => props.theme.white.lighter};
 `;
 
 const BoxVariants = {
@@ -180,6 +202,12 @@ function Home() {
 
   const onOverlayClick = () => history.push("/");
 
+  const clickedMovie =
+    bigMovieMatch?.params.movieId &&
+    data?.results.find(
+      (movie) => movie.id + "" === bigMovieMatch.params.movieId
+    );
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -234,7 +262,20 @@ function Home() {
                   animate={{ opacity: 1 }}
                 >
                   <BigMovie layoutId={bigMovieMatch.params.movieId}>
-                    hello
+                    {clickedMovie && (
+                      <>
+                        <BigCover
+                          style={{
+                            backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
+                              clickedMovie.backdrop_path,
+                              "w500"
+                            )})`,
+                          }}
+                        />
+                        <BigTitle>{clickedMovie.title}</BigTitle>
+                        <BigOverview>{clickedMovie.overview}</BigOverview>
+                      </>
+                    )}
                   </BigMovie>
                 </Overlay>
               </>
