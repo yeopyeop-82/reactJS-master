@@ -50,8 +50,10 @@ const Row = styled(motion.div)`
   grid-template-columns: repeat(6, 1fr);
   gap: 5px;
   margin-bottom: 5px;
+  /* margin-left: 30px;
+  margin-right: 30px; */
   position: absolute;
-
+  bottom: -60px;
   width: 100%;
 `;
 
@@ -65,11 +67,26 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   width: 230px;
   color: red;
   font-size: 64px;
+  position: relative;
   &:first-child {
     transform-origin: center left;
   }
   &:last-child {
     transform-origin: center right;
+  }
+`;
+
+const Info = styled(motion.div)`
+  padding: 8px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 13px;
+    color: white;
   }
 `;
 
@@ -90,6 +107,7 @@ const BoxVariants = {
     scale: 1,
   },
   hover: {
+    zIndex: 99,
     scale: 1.3,
     transition: {
       delay: 0.5,
@@ -97,6 +115,17 @@ const BoxVariants = {
       duration: 0.3,
     },
     y: -30,
+  },
+};
+
+const infoVariants = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      type: "tween",
+      duration: 0.3,
+    },
   },
 };
 
@@ -155,7 +184,11 @@ function Home() {
                       initial="normal"
                       transition={{ type: "tween" }}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                    ></Box>
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
