@@ -48,9 +48,10 @@ const Slider = styled(motion.div)`
 const Row = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 5px;
   position: absolute;
+
   width: 100%;
 `;
 
@@ -59,9 +60,17 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
   background-position: center;
-  height: 200px;
+  margin-bottom: 100px;
+  height: 120px;
+  width: 230px;
   color: red;
   font-size: 64px;
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
 
 const rowVariants = {
@@ -73,6 +82,21 @@ const rowVariants = {
   },
   exit: {
     x: -window.outerWidth - 10,
+  },
+};
+
+const BoxVariants = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.3,
+    transition: {
+      delay: 0.5,
+      type: "tween",
+      duration: 0.3,
+    },
+    y: -30,
   },
 };
 
@@ -126,6 +150,10 @@ function Home() {
                   .map((movie) => (
                     <Box
                       key={movie.id}
+                      variants={BoxVariants}
+                      whileHover="hover"
+                      initial="normal"
+                      transition={{ type: "tween" }}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                     ></Box>
                   ))}
